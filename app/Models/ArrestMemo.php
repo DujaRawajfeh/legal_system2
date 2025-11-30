@@ -28,9 +28,20 @@ class ArrestMemo extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    // علاقة اختيارية مع جدول القضايا إذا بدك تربطيه لاحقًا
-    // public function case()
-    // {
-    //     return $this->belongsTo(Case::class, 'case_id', 'id');
-    // }
+    
+    public function participantDetails()
+{
+    return $this->hasOne(Participant::class, 'name', 'participant_name')
+                ->whereColumn('court_case_id', 'arrest_memos.case_id');
+}
+
+
+public function case()
+{
+  return $this->belongsTo(CourtCase::class, 'case_id');
+}
+
+
+
+
 }

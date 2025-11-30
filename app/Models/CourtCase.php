@@ -19,7 +19,7 @@ class CourtCase extends Model
         'created_by',
         'judge_id',
     ];
-     protected $table = 'court_cases';
+    
     // المحكمة المرتبطة
     public function tribunal()
     {
@@ -49,14 +49,48 @@ class CourtCase extends Model
     return $this->belongsTo(User::class, 'judge_id');
 }
 
-public function session()
+public function sessions()
 {
-    return $this->hasOne(CaseSession::class);
+    return $this->hasMany(CaseSession::class);
 }
 
 public function transfer()
 {
     return $this->hasOne(CaseTransfer::class, 'target_case_id');
+}
+
+public function judgments()
+{
+    return $this->hasMany(CaseJudgment::class);
+}
+
+
+
+public function arrestMemos()
+{
+    return $this->hasMany(ArrestMemo::class, 'case_id');
+}
+
+public function notifications()
+{
+    return $this->hasMany(Notification::class, 'case_id');
+}
+
+public function archivedDocuments()
+{
+    return $this->hasMany(ArchivedDocument::class);
+}
+
+
+public function sessionReports()
+{
+    return $this->hasMany(CourtSessionReport::class, 'court_case_id');
+}
+
+
+public function caseJudgment()
+{
+    return $this->hasOne(CaseJudgment::class, 'court_case_id', 'id');
 }
 }
 

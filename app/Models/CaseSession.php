@@ -25,11 +25,12 @@ class CaseSession extends Model
         'action_done',
         'judgment_type',
         'created_by',
+        'session_goal',
     ];
 
     protected $casts = [
         'session_date' => 'datetime',
-        'session_time' => 'time',
+        'session_time' => 'datetime:H:i:s',
         'action_done' => 'boolean',
     ];
 
@@ -48,4 +49,10 @@ class CaseSession extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+
+    public function reports()
+{
+    return $this->hasMany(CourtSessionReport::class, 'case_session_id');
+}
 }

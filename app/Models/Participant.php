@@ -18,6 +18,7 @@ class Participant extends Model
         'job',
         'phone',
         'charge',
+        'fingerprint',
     ];
 
     // العلاقة مع القضية
@@ -25,4 +26,12 @@ class Participant extends Model
     {
         return $this->belongsTo(CourtCase::class);
     }
+
+
+
+
+    public function sessionReports()
+{
+    return $this->hasMany(CourtSessionReport::class, 'participant_id');
+}
 }
